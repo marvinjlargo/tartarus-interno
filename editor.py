@@ -1,10 +1,16 @@
 import tkinter as tk
-from tkinter import messagebox, simpledialog, ttk
+from tkinter import messagebox, simpledialog, ttk, scrolledtext
 import re
 import os
 import subprocess
+import webbrowser
+import datetime
+from fpdf import FPDF
+import threading
 
 HTML_FILE = "index.html"
+LOG_FILE = "editor_log.txt"
+SITE_URL = "https://marvinjlargo.github.io/tartarus-interno"
 
 # Configuración de botones
 BUTTONS = {
@@ -40,6 +46,65 @@ ACCIONES_PERSONALIZADAS = {
     "Reece": "Sube enlace a repositorio GitHub del backend"
 }
 
+# Función para registrar cambios en el log
+def registrar_cambio(accion, detalles):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    log_entry = f"[{timestamp}] {accion}: {detalles}\n"
+    
+    # Guardar en archivo
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
+        f.write(log_entry)
+    
+    # Actualizar el área de log en la interfaz si existe
+    if hasattr(registrar_cambio, 'log_area') and registrar_cambio.log_area:
+        registrar_cambio.log_area.insert(tk.END, log_entry)
+        registrar_cambio.log_area.see(tk.END)
+
+# Función para exportar el historial a PDF
+def exportar_historial_pdf():
+    try:
+        # Leer el contenido del log
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            log_content = f.read()
+        
+        # Crear PDF
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", "B", 16)
+        pdf.cell(0, 10, "Historial de Cambios - Tartarus Dynamics", ln=True, align="C")
+        pdf.ln(10)
+        
+        pdf.set_font("Arial", "", 12)
+        
+        # Dividir el contenido en líneas y añadir al PDF
+        for line in log_content.split('\n'):
+            if line.strip():
+                pdf.multi_cell(0, 10, line)
+        
+        # Guardar PDF
+        pdf.output("historial.pdf")
+        messagebox.showinfo("Éxito", "Historial exportado a 'historial.pdf'")
+    except Exception as e:
+        messagebox.showerror("Error", f"Error al exportar el historial: {e}")
+
+# Función para publicar cambios y abrir el sitio
+def publicar_cambios():
+    try:
+        # Ejecutar comandos git
+        subprocess.run(["git", "add", "."], check=True)
+        subprocess.run(["git", "commit", "-m", "Actualización desde editor.py"], check=True)
+        subprocess.run(["git", "push", "origin", "main"], check=True)
+        
+        # Registrar en el log
+        registrar_cambio("Publicación", "Cambios publicados en GitHub")
+        
+        # Abrir el sitio en el navegador
+        webbrowser.open(SITE_URL)
+        
+        messagebox.showinfo("Éxito", "Cambios publicados y sitio abierto en el navegador.")
+    except subprocess.CalledProcessError as e:
+        messagebox.showerror("Error", f"Error al publicar cambios: {e}")
+
 # Funciones para actualizar botones
 def actualizar_boton(nombre_visible, link, estado):
     with open(HTML_FILE, "r", encoding="utf-8") as f:
@@ -69,6 +134,9 @@ def actualizar_boton(nombre_visible, link, estado):
     # Guardar cambios
     with open(HTML_FILE, "w", encoding="utf-8") as f:
         f.write(html)
+    
+    # Registrar en el log
+    registrar_cambio("Botón", f"'{nombre_visible}' actualizado con link: {link}, estado: {estado}")
 
 def editar_boton(nombre_visible):
     nuevo_link = simpledialog.askstring("Nuevo Link", f"Inserta el nuevo link para:\n{nombre_visible}")
@@ -103,6 +171,9 @@ def actualizar_timeline(fecha, tarea, responsable, estado, link):
     # Guardar cambios
     with open(HTML_FILE, "w", encoding="utf-8") as f:
         f.write(html)
+    
+    # Registrar en el log
+    registrar_cambio("Línea de tiempo", f"Tarea '{tarea}' actualizada: fecha={fecha}, responsable={responsable}, estado={estado}, link={nuevo_link}")
 
 def editar_timeline(tarea):
     # Extraer la información actual de la tarea
@@ -164,6 +235,9 @@ def actualizar_documentacion(nombre, estado):
     # Guardar cambios
     with open(HTML_FILE, "w", encoding="utf-8") as f:
         f.write(html)
+    
+    # Registrar en el log
+    registrar_cambio("Documentación legal", f"Estado de {nombre} actualizado a '{estado}'")
 
 def editar_documentacion(nombre):
     # Extraer el estado actual
@@ -213,6 +287,9 @@ def actualizar_accion_personalizada(nombre, tarea, link=None):
     # Guardar cambios
     with open(HTML_FILE, "w", encoding="utf-8") as f:
         f.write(html)
+    
+    # Registrar en el log
+    registrar_cambio("Acción personalizada", f"Tarea de {nombre} actualizada a '{tarea}' con link: {link if link else 'ninguno'}")
 
 def editar_accion_personalizada(nombre):
     # Extraer la tarea actual
@@ -262,6 +339,9 @@ def actualizar_plan_compra(estado, responsable, link):
     # Guardar cambios
     with open(HTML_FILE, "w", encoding="utf-8") as f:
         f.write(html)
+    
+    # Registrar en el log
+    registrar_cambio("Plan de compra", f"Estado actualizado a '{estado}', responsable: {responsable}, link: {link}")
 
 def editar_plan_compra():
     # Extraer la información actual
@@ -303,6 +383,9 @@ def hacer_push():
         subprocess.run(["git", "commit", "-m", "Actualización desde editor.py"], check=True)
         subprocess.run(["git", "push"], check=True)
         messagebox.showinfo("Éxito", "Cambios enviados a GitHub.")
+        
+        # Registrar en el log
+        registrar_cambio("Push", "Cambios enviados a GitHub")
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error", f"Error al hacer push: {e}")
 
@@ -341,6 +424,7 @@ class TartarusEditor:
         self.tab_documentacion = ttk.Frame(self.notebook)
         self.tab_acciones = ttk.Frame(self.notebook)
         self.tab_proveedores = ttk.Frame(self.notebook)
+        self.tab_historial = ttk.Frame(self.notebook)  # Nueva pestaña para historial
         
         # Añadir pestañas al notebook
         self.notebook.add(self.tab_botones, text="Botones")
@@ -348,6 +432,7 @@ class TartarusEditor:
         self.notebook.add(self.tab_documentacion, text="Documentación Legal")
         self.notebook.add(self.tab_acciones, text="Acciones Personalizadas")
         self.notebook.add(self.tab_proveedores, text="Proveedores")
+        self.notebook.add(self.tab_historial, text="Historial")
         
         # Configurar pestaña de botones
         self.setup_botones_tab()
@@ -364,6 +449,9 @@ class TartarusEditor:
         # Configurar pestaña de proveedores
         self.setup_proveedores_tab()
         
+        # Configurar pestaña de historial
+        self.setup_historial_tab()
+        
         # Frame para botones de acción
         action_frame = ttk.Frame(main_frame)
         action_frame.pack(fill=tk.X, pady=(0, 10))
@@ -376,6 +464,15 @@ class TartarusEditor:
             style="Accent.TButton"
         )
         btn_push.pack(side=tk.RIGHT, padx=5)
+        
+        # Botón para publicar cambios
+        btn_publish = ttk.Button(
+            action_frame, 
+            text="Publicar cambios", 
+            command=publicar_cambios,
+            style="Accent.TButton"
+        )
+        btn_publish.pack(side=tk.RIGHT, padx=5)
     
     def setup_dark_theme(self):
         # Configurar el estilo ttk
@@ -637,6 +734,56 @@ class TartarusEditor:
             style="TButton"
         )
         btn.pack(fill=tk.X, pady=5)
+    
+    def setup_historial_tab(self):
+        # Frame para historial con padding
+        frame = ttk.Frame(self.tab_historial, padding="20")
+        frame.pack(fill=tk.BOTH, expand=True)
+        
+        # Título
+        ttk.Label(
+            frame, 
+            text="Historial de Cambios", 
+            font=("Segoe UI", 14, "bold")
+        ).pack(pady=(0, 20))
+        
+        # Área de texto para mostrar el historial
+        log_frame = ttk.Frame(frame)
+        log_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 20))
+        
+        # Área de texto con scroll
+        log_area = scrolledtext.ScrolledText(
+            log_frame, 
+            wrap=tk.WORD, 
+            bg="#1a1f25", 
+            fg="#ffffff",
+            font=("Segoe UI", 10),
+            borderwidth=0
+        )
+        log_area.pack(fill=tk.BOTH, expand=True)
+        
+        # Guardar referencia al área de log para la función de registro
+        registrar_cambio.log_area = log_area
+        
+        # Cargar contenido del log si existe
+        if os.path.exists(LOG_FILE):
+            with open(LOG_FILE, "r", encoding="utf-8") as f:
+                log_content = f.read()
+                log_area.insert(tk.END, log_content)
+                log_area.see(tk.END)
+        
+        # Frame para botones
+        btn_frame = ttk.Frame(frame)
+        btn_frame.pack(fill=tk.X)
+        
+        # Botón para exportar a PDF
+        btn_export = ttk.Button(
+            btn_frame, 
+            text="📄 Exportar historial a PDF", 
+            command=exportar_historial_pdf,
+            style="TButton"
+        )
+        btn_export.pack(side=tk.RIGHT, padx=5)
 
 # Iniciar la aplicación
 if __name__ == "__main__":
