@@ -87,6 +87,17 @@ body {
     background-color: #00b3e6;
   }
   
+  button.inactive, 
+  button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  button.inactive:hover, 
+  button:disabled:hover {
+    background-color: #cccccc;
+  }
+  
   .timeline-section {
     margin-top: 2rem;
     overflow-x: auto;
@@ -198,6 +209,17 @@ body {
   
   .action-button:hover {
     background-color: #00b3e6;
+  }
+  
+  .action-button.inactive, 
+  .action-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .action-button.inactive:hover, 
+  .action-button:disabled:hover {
+    background-color: #cccccc;
   }
   
   .personalized-actions {
