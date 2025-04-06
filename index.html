@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tartarus Dynamics - Roadmap Interno</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loginContainer" class="container">
+    <h2>🔐 Iniciar Sesión</h2>
+    <input type="text" id="username" placeholder="Usuario">
+    <input type="password" id="password" placeholder="Contraseña">
+    <button onclick="login()">Ingresar</button>
+    <p id="errorMsg"></p>
+  </div>
+
+  <div id="mainContent" class="hidden">
+    <header>
+      <img src="tartarus-logo.png" alt="Tartarus Dynamics Logo" class="logo">
+      <h1>Tartarus Dynamics</h1>
+    </header>
+    
+    <div class="welcome-section">
+      <p>Bienvenidos al sitio interno de Tartarus Dynamics. Aquí podrán visualizar el estado actual del proyecto, sus próximos pasos estratégicos, y los hitos clave que debemos alcanzar entre abril y julio.</p>
+    </div>
+
+    <div class="timeline-section">
+      <h2>Línea de Tiempo</h2>
+      <table class="timeline-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Tarea</th>
+            <th>Responsable</th>
+            <th>Estado</th>
+            <th>Archivo/Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Abril 10-20</td>
+            <td>Grabación de videos para Moonshot</td>
+            <td>Jaime, Verónica</td>
+            <td>Pendiente</td>
+            <td><a href="#">Guion</a></td>
+          </tr>
+          <tr>
+            <td>Abril 20</td>
+            <td>Inscripción oficial a Moonshot</td>
+            <td>Marvin</td>
+            <td>Pendiente</td>
+            <td><a href="#">Formulario</a></td>
+          </tr>
+          <tr>
+            <td>Mayo 10-20</td>
+            <td>Viaje a Villavicencio, firma con Unillanos</td>
+            <td>Marvin</td>
+            <td>Pendiente</td>
+            <td><a href="#">Itinerario</a></td>
+          </tr>
+          <tr>
+            <td>Mayo-Junio</td>
+            <td>Pruebas con 500 vacas</td>
+            <td>Marvin, Jim Andrews</td>
+            <td>Pendiente</td>
+            <td><a href="#">Protocolo</a></td>
+          </tr>
+          <tr>
+            <td>Junio</td>
+            <td>Lanzamiento formal del producto</td>
+            <td>Equipo completo</td>
+            <td>Pendiente</td>
+            <td><a href="#">Plan</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <section class="content-section">
+      <h2>📜 1. Creación Legal</h2>
+      <ul>
+        <li>La LLC será registrada esta semana en Wyoming.</li>
+        <li>Luisa Londono (hermana de Marvin) está preparando el Operating Agreement.</li>
+        <li>Próxima semana se necesitarán:
+          <ul>
+            <li>Pasaporte o documento oficial</li>
+            <li>Dirección completa</li>
+            <li>Teléfono</li>
+            <li>Firma electrónica vía DocuSign (o similar)</li>
+          </ul>
+        </li>
+      </ul>
+      <button class="cta-button">Sube tus datos legales aquí</button>
+    </section>
+
+    <section class="content-section">
+      <h2>🔧 2. Desarrollo de Producto</h2>
+      <ul>
+        <li>El MVP de Ñutag está en su fase funcional.</li>
+        <li>Backend y hosting listos.</li>
+        <li>Faltan pruebas de campo con 500 vacas (Jim Andrews).</li>
+        <li>Se debe comprar la pistola Bluetooth y los ear tags.</li>
+        <li>Desarrollo en Expo React Native en curso.</li>
+      </ul>
+      <button class="cta-button">Sigue el estado del MVP aquí</button>
+    </section>
+
+    <section class="content-section">
+      <h2>📈 3. Expansión Comercial</h2>
+      <ul>
+        <li>Jaime: contacto comercial con ganaderos.</li>
+        <li>Verónica: contacto local en Paraguay.</li>
+        <li>Se abrirá empresa en Paraguay y Colombia para pasarelas de pago.</li>
+      </ul>
+      <button class="cta-button">Confirma tus tareas de expansión</button>
+    </section>
+
+    <section class="content-section">
+      <h2>🎥 4. Videos Promocionales</h2>
+      <ul>
+        <li>Jaime y Verónica grabarán 2 videos en granjas reales.</li>
+        <li>El video será usado para inscribirse en Moonshot.</li>
+      </ul>
+      <button class="cta-button">Ver guion y coordinar grabaciones</button>
+    </section>
+
+    <section class="content-section">
+      <h2>🎓 5. Alianzas Universitarias</h2>
+      <ul>
+        <li>Entre el 10 y 20 de mayo Marvin viajará a Villavicencio.</li>
+        <li>Se espera firmar colaboración con <strong>Unillanos</strong> para validación científica.</li>
+      </ul>
+      <button class="cta-button">Ver borrador de convenio Unillanos</button>
+    </section>
+
+    <section class="content-section">
+      <h2>💳 6. Finanzas & Legal</h2>
+      <ul>
+        <li>Jaime aportará $3,000 USD por 2.5% de equity inicial (fase 1).</li>
+        <li>Si todo va bien, invertirá $15,000 USD adicionales por 7.5% (fase 2).</li>
+        <li>La empresa necesita abrir cuentas en EE. UU., Colombia y Paraguay.</li>
+        <li>Se buscará construir historial crediticio para futuras rondas.</li>
+      </ul>
+      <button class="cta-button">Ver plan financiero 2025</button>
+    </section>
+
+    <section class="content-section">
+      <h2>👥 7. Fundadores y tareas</h2>
+      <ul>
+        <li>Marvin: CTO, full-time, lidera ejecución técnica y estrategia.</li>
+        <li>Reece: 10%, soporte técnico (limitado por tiempo).</li>
+        <li>Jaime: 10%, inversión + ganadería + comercial.</li>
+        <li>Verónica: 5% propuesto, representación local y apoyo comercial.</li>
+        <li>Se reservarán 10–15% para futuras rondas o nuevos técnicos.</li>
+      </ul>
+      <button class="cta-button">Confirma tu rol actual</button>
+    </section>
+
+    <section class="content-section">
+      <h2>📅 Fechas clave</h2>
+      <ul>
+        <li>Abril 10–20: grabación de videos para Moonshot</li>
+        <li>Abril 20: inscripción oficial a Moonshot</li>
+        <li>Mayo 10–20: viaje a Villavicencio, firma con Unillanos</li>
+        <li>Mayo–Junio: pruebas con 500 vacas</li>
+        <li>Junio: lanzamiento formal del producto</li>
+      </ul>
+    </section>
+
+    <!-- NUEVAS SECCIONES AÑADIDAS -->
+
+    <section class="content-section">
+      <h2>📌 Estado de Documentación Legal</h2>
+      <div class="documentation-status">
+        <div class="status-item">
+          <h3>Marvin Largo</h3>
+          <div class="status-indicator completed">Completado</div>
+          <button class="action-button">Actualizar información</button>
+        </div>
+        <div class="status-item">
+          <h3>Jaime</h3>
+          <div class="status-indicator pending">Pendiente</div>
+          <button class="action-button">Sube tus datos</button>
+        </div>
+        <div class="status-item">
+          <h3>Verónica</h3>
+          <div class="status-indicator pending">Pendiente</div>
+          <button class="action-button">Sube tus datos</button>
+        </div>
+        <div class="status-item">
+          <h3>Reece</h3>
+          <div class="status-indicator pending">Pendiente</div>
+          <button class="action-button">Sube tus datos</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>✍️ Firma del Operating Agreement</h2>
+      <p>Luisa, hermana de Marvin, está redactando el Operating Agreement. Todos deberán firmarlo la próxima semana vía plataforma tipo DocuSign.</p>
+      <button class="cta-button">Previsualizar documento</button>
+    </section>
+
+    <section class="content-section">
+      <h2>🛠️ Acciones Personalizadas</h2>
+      <div class="personalized-actions">
+        <div class="action-card">
+          <h3>Jaime</h3>
+          <p>Graba video comercial esta semana</p>
+          <button class="action-button">Confirmar grabación</button>
+        </div>
+        <div class="action-card">
+          <h3>Verónica</h3>
+          <p>Confirma tu rol y datos para correo oficial</p>
+          <button class="action-button">Actualizar información</button>
+        </div>
+        <div class="action-card">
+          <h3>Reece</h3>
+          <p>Sube enlace a repositorio GitHub del backend</p>
+          <button class="action-button">Compartir enlace</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>📦 Proveedores y logística de compra</h2>
+      <div class="purchase-plan">
+        <h3>Plan de compra de aretes y pistola Bluetooth</h3>
+        <div class="purchase-status">
+          <p><strong>Estado:</strong> <span class="status-text">En cotización</span></p>
+          <p><strong>Responsable:</strong> Marvin</p>
+          <p><strong>Links de cotización:</strong> <a href="#">Ver cotizaciones</a></p>
+        </div>
+        <button class="cta-button">Actualizar estado de compra</button>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>🌐 Canal de comunicación oficial</h2>
+      <p>Únete al canal oficial del equipo para mantenernos conectados y actualizados.</p>
+      <div class="discord-link">
+        <input type="text" value="https://discord.gg/tartarus-dynamics" readonly>
+        <button class="action-button">Copiar enlace</button>
+      </div>
+      <button class="cta-button">Únete al canal oficial del equipo</button>
+    </section>
+
+    <section class="content-section">
+      <h2>💰 Inicio de operaciones en EE. UU. y bancarización</h2>
+      <p>Tras formar la LLC, se abrirá una cuenta para gestión de pagos y gastos.</p>
+      <div class="financial-notice">
+        <p><strong>Aviso importante:</strong> Por ahora NO se usará el dinero de inversión de Jaime para contratar técnicos.</p>
+      </div>
+      <button class="cta-button">Ver plan de bancarización</button>
+    </section>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
