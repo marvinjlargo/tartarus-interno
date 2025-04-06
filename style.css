@@ -87,17 +87,6 @@ body {
     background-color: #00b3e6;
   }
   
-  button.inactive, 
-  button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  button.inactive:hover, 
-  button:disabled:hover {
-    background-color: #cccccc;
-  }
-  
   .timeline-section {
     margin-top: 2rem;
     overflow-x: auto;
@@ -211,17 +200,6 @@ body {
     background-color: #00b3e6;
   }
   
-  .action-button.inactive, 
-  .action-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  .action-button.inactive:hover, 
-  .action-button:disabled:hover {
-    background-color: #cccccc;
-  }
-  
   .personalized-actions {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -278,7 +256,7 @@ body {
   @media (max-width: 768px) {
     #loginContainer, #mainContent {
       margin: 1rem;
-      padding: 1.5rem;
+      padding: 1rem;
     }
     
     .timeline-table {
@@ -311,12 +289,25 @@ body {
       margin-right: 0;
       margin-bottom: 0.5rem;
     }
+    
+    .content-section {
+      padding: 1rem;
+    }
+    
+    .welcome-section {
+      padding: 1rem;
+    }
+    
+    button {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+    }
   }
   
   @media (max-width: 480px) {
     #loginContainer, #mainContent {
       margin: 0.5rem;
-      padding: 1rem;
+      padding: 0.8rem;
     }
     
     .timeline-table {
@@ -329,11 +320,127 @@ body {
     }
     
     h1 {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
     
     .logo {
       max-width: 120px;
+    }
+    
+    h2 {
+      font-size: 1.2rem;
+    }
+    
+    h3 {
+      font-size: 1rem;
+    }
+    
+    .status-item,
+    .action-card {
+      padding: 0.8rem;
+    }
+    
+    .status-indicator {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+    }
+    
+    .purchase-plan,
+    .financial-notice {
+      padding: 0.8rem;
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+      padding: 0.6rem;
+      font-size: 0.9rem;
+    }
+    
+    .content-section ul {
+      padding-left: 1rem;
+    }
+    
+    .content-section li {
+      margin-bottom: 0.4rem;
+    }
+  }
+  
+  /* Ajustes para la tabla en dispositivos móviles */
+  @media (max-width: 600px) {
+    .timeline-section {
+      margin: 0 -1rem;
+      padding: 0 1rem;
+    }
+    
+    .timeline-table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .timeline-table th,
+    .timeline-table td {
+      white-space: nowrap;
+      min-width: 100px;
+    }
+  }
+  
+  /* Ajustes para el login en móviles */
+  @media (max-width: 480px) {
+    #loginContainer {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+    
+    #loginContainer h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    #loginContainer input {
+      margin-bottom: 0.8rem;
+    }
+    
+    #loginContainer button {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    
+    #errorMsg {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+  }
+  
+  /* Ajustes para mejorar la legibilidad en pantallas pequeñas */
+  @media (max-width: 768px) {
+    body {
+      font-size: 0.95rem;
+    }
+    
+    .content-section {
+      margin-bottom: 1rem;
+    }
+    
+    .cta-button {
+      margin-top: 0.8rem;
+    }
+    
+    .action-button {
+      padding: 0.4rem 0.8rem;
+    }
+  }
+  
+  /* Ajustes para mejorar la usabilidad en dispositivos táctiles */
+  @media (hover: none) {
+    button,
+    .action-button,
+    .cta-button {
+      padding: 0.8rem 1.2rem;
+    }
+    
+    .timeline-table tr:hover {
+      background-color: transparent;
     }
   }
   
