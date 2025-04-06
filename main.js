@@ -68,3 +68,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Función para verificar y manejar el estado del botón de documentos legales
+document.addEventListener('DOMContentLoaded', function() {
+  const legalDocsLink = document.querySelector('.legal-docs-link');
+  const legalDocsButton = document.querySelector('.legal-docs-link .cta-button');
+  
+  if (legalDocsLink && legalDocsButton) {
+    // Verificar si el enlace está vacío o no es válido
+    if (!legalDocsLink.getAttribute('href') || legalDocsLink.getAttribute('href') === '') {
+      legalDocsLink.removeAttribute('href');
+      legalDocsButton.classList.remove('active-button');
+      legalDocsButton.classList.add('disabled-button');
+    } else {
+      legalDocsButton.classList.add('active-button');
+      legalDocsButton.classList.remove('disabled-button');
+    }
+  }
+  
+  // Identificar y marcar botones sin enlaces
+  const allButtons = document.querySelectorAll('.cta-button');
+  allButtons.forEach(button => {
+    // Verificar si el botón está dentro de un enlace
+    const parentLink = button.closest('a');
+    if (!parentLink || !parentLink.getAttribute('href') || parentLink.getAttribute('href') === '') {
+      button.classList.add('no-link');
+    }
+  });
+});

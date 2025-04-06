@@ -252,6 +252,59 @@ body {
     border-left: 3px solid #ffc107;
   }
   
+  /* Estilos para botones de documentos legales */
+  .legal-docs-link {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+  }
+  
+  .active-button {
+    background-color: #00BFFF !important;
+    color: #ffffff !important;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .active-button:hover {
+    background-color: #0099cc !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 191, 255, 0.3);
+  }
+  
+  .disabled-button {
+    background-color: #cccccc !important;
+    color: #666666 !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  .disabled-button:hover {
+    background-color: #cccccc !important;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* Estilos para botones sin enlace */
+  button[disabled],
+  .no-link {
+    background-color: #cccccc !important;
+    color: #aaaaaa !important;
+    cursor: not-allowed;
+    opacity: 1;
+    border: 1px solid #bbbbbb;
+    box-shadow: none;
+    pointer-events: none;
+    font-weight: bold;
+    transition: none;
+  }
+  
+  .no-link:hover {
+    background-color: #cccccc !important;
+    transform: none;
+    box-shadow: none;
+  }
+  
   /* Responsive design */
   @media (max-width: 768px) {
     #loginContainer, #mainContent {
@@ -301,6 +354,11 @@ body {
     button {
       padding: 0.6rem 1rem;
       font-size: 0.9rem;
+    }
+    
+    .active-button {
+      padding: 0.8rem 1.2rem;
+      font-size: 0.95rem;
     }
   }
   
@@ -362,6 +420,11 @@ body {
     
     .content-section li {
       margin-bottom: 0.4rem;
+    }
+    
+    .active-button {
+      padding: 0.7rem 1rem;
+      font-size: 0.9rem;
     }
   }
   
@@ -441,6 +504,15 @@ body {
     
     .timeline-table tr:hover {
       background-color: transparent;
+    }
+    
+    .active-button:hover {
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .active-button:active {
+      background-color: #0099cc !important;
     }
   }
   
